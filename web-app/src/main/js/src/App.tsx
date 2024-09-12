@@ -17,7 +17,6 @@ import 'ace-builds/src-noconflict/theme-solarized_light';
 import 'ace-builds/src-noconflict/theme-terminal';
 
 import 'ace-builds/src-noconflict/ext-language_tools';
-import 'ace-builds/webpack-resolver';
 
 import { ThemeProvider } from './theme/ThemeContext';
 

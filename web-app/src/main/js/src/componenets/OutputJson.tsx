@@ -89,6 +89,7 @@ export const OutputJson = ({
           wrapEnabled={isWordWrapEnabled}
           setOptions={{
             wrap: isWordWrapEnabled,
+            useWorker: false
           }}
           editorProps={{ $blockScrolling: true }}
         />

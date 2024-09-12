@@ -104,6 +104,7 @@ export const InputJson = forwardRef<InputJsonHandle, InputJsonProps>(
               showLineNumbers: true,
               enableSnippets: true,
               wrap: isWordWrapEnabled,
+              useWorker: false
             }}
             editorProps={{ $blockScrolling: true }}
           />
