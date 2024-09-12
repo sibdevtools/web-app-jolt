@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
         produces = MediaType.APPLICATION_JSON_VALUE
 )
 public class WebAppJoltController {
-    @PostMapping(value = "/transform", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/v1/transform", consumes = MediaType.APPLICATION_JSON_VALUE)
     public Object transform(@RequestBody TransformRq rq) {
         return Chainr.fromSpec(rq.specification())
                 .transform(rq.input());

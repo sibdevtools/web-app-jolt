@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Exchange01Icon, TextWrapIcon } from 'hugeicons-react';
-import { InputJsonHandle } from "./InputJson";
+import { InputJsonHandle } from './InputJson';
 import AceEditor from 'react-ace';
-import { useTheme } from "../theme/ThemeContext";
+import { useTheme } from '../theme/ThemeContext';
 
 export interface OutputJsonProps {
   setErrorMessage: (inputText: string) => void;
@@ -31,7 +31,7 @@ export const OutputJson = ({
     }
 
     try {
-      const response = await fetch('/web/app/jolt/transform', {
+      const response = await fetch('/web/app/jolt/v1/transform', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -70,7 +70,7 @@ export const OutputJson = ({
         </button>
         <button
           className={`btn btn-primary ${(isWordWrapEnabled ? 'active' : '')}`}
-          title={isWordWrapEnabled ? "Unwrap" : "Wrap"}
+          title={isWordWrapEnabled ? 'Unwrap' : 'Wrap'}
           onClick={toggleWordWrap}
         >
           <TextWrapIcon />
