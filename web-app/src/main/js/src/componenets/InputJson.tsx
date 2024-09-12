@@ -1,8 +1,8 @@
 import React, { forwardRef, useImperativeHandle, useState } from 'react';
 import { AiBeautifyIcon, CheckmarkSquare01Icon, TextWrapIcon } from 'hugeicons-react';
-import { prettifyJson, validateJson } from "../utils/validators";
+import { prettifyJson, validateJson } from '../utils/validators';
 import AceEditor from 'react-ace';
-import { useTheme } from "../theme/ThemeContext";
+import { useTheme } from '../theme/ThemeContext';
 
 export interface InputJsonProps {
   id: string;
@@ -74,7 +74,7 @@ export const InputJson = forwardRef<InputJsonHandle, InputJsonProps>(
           </button>
           <button
             className={`btn btn-primary ${(isWordWrapEnabled ? 'active' : '')}`}
-            title={isWordWrapEnabled ? "Unwrap" : "Wrap"}
+            title={isWordWrapEnabled ? 'Unwrap' : 'Wrap'}
             onClick={toggleWordWrap}
           >
             <TextWrapIcon />
