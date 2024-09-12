@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
-import { Exchange01Icon } from 'hugeicons-react';
+import { Exchange01Icon, TextWrapIcon } from 'hugeicons-react';
 import { InputJsonHandle } from "./InputJson";
+import AceEditor from 'react-ace';
+import { useTheme } from "../theme/ThemeContext";
 
 export interface OutputJsonProps {
-  setErrorMessage: (inputText: string) => void,
-  inputTextRef: React.MutableRefObject<InputJsonHandle | null>
-  inputSpecificationRef: React.MutableRefObject<InputJsonHandle | null>
+  setErrorMessage: (inputText: string) => void;
+  inputTextRef: React.MutableRefObject<InputJsonHandle | null>;
+  inputSpecificationRef: React.MutableRefObject<InputJsonHandle | null>;
 }
 
 export const OutputJson = ({
@@ -13,17 +15,19 @@ export const OutputJson = ({
                              inputTextRef,
                              inputSpecificationRef
                            }: OutputJsonProps) => {
+  const { theme } = useTheme();
   const [outputText, setOutputText] = useState('');
+  const [isWordWrapEnabled, setWordWrapEnabled] = useState(true);
 
   const handleTransform = async () => {
     let input = inputTextRef?.current?.getValidated();
     if (!input) {
-      return
+      return;
     }
 
     let specification = inputSpecificationRef?.current?.getValidated();
     if (!specification) {
-      return
+      return;
     }
 
     try {
@@ -53,24 +57,42 @@ export const OutputJson = ({
     }
   };
 
+  const toggleWordWrap = () => {
+    setWordWrapEnabled((prev) => !prev);
+  };
+
   return (
     <>
       <label htmlFor="outputArea" className="form-label">Output</label>
-      <textarea
-        id="outputArea"
-        className="form-control"
-        value={outputText}
-        style={{ minHeight: '480px' }}
-        readOnly
-        placeholder="Output"
-      />
-      <button
-        className="btn btn-primary position-absolute"
-        style={{ top: 0, right: 0 }}
-        onClick={handleTransform}
-      >
-        <Exchange01Icon />
-      </button>
+      <div className="btn-group position-absolute" role="group" style={{ top: 0, right: 0, zIndex: 3 }}>
+        <button className="btn btn-success" onClick={handleTransform}>
+          <Exchange01Icon />
+        </button>
+        <button
+          className={`btn btn-primary ${(isWordWrapEnabled ? 'active' : '')}`}
+          title={isWordWrapEnabled ? "Unwrap" : "Wrap"}
+          onClick={toggleWordWrap}
+        >
+          <TextWrapIcon />
+        </button>
+      </div>
+      <div style={{ position: 'relative' }}>
+        <AceEditor
+          mode="json"
+          theme={theme}
+          name="outputAceEditor"
+          value={outputText}
+          fontSize={14}
+          width="100%"
+          height="480px"
+          readOnly
+          wrapEnabled={isWordWrapEnabled}
+          setOptions={{
+            wrap: isWordWrapEnabled,
+          }}
+          editorProps={{ $blockScrolling: true }}
+        />
+      </div>
     </>
   );
 };

@@ -37,7 +37,7 @@ export const prettifyJson = (inputJson: string): PrettifyStatus => {
   }
   const validated = validationStatus.message
   try {
-    const prettified = JSON.stringify(validated, null, 4);
+    const prettified = JSON.stringify(validated, null, 2);
     return {
       status: true,
       message: prettified
