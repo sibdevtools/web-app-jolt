@@ -32,7 +32,7 @@ public class WebAppJolt implements WebApplication {
     @Nonnull
     @Override
     public LocalizationId getIconCode() {
-        return new LocalizationId(LOCALIZATION_SOURCE_ID, "web.app.jolt");
+        return new LocalizationId(LOCALIZATION_SOURCE_ID, "web.app.jolt.icon");
     }
 
     @Nonnull
