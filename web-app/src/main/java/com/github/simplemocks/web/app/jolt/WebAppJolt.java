@@ -2,6 +2,7 @@ package com.github.simplemocks.web.app.jolt;
 
 import com.github.simple_mocks.localization_service.api.dto.LocalizationId;
 import com.github.simple_mocks.localization_service.api.dto.LocalizationSourceId;
+import com.github.simple_mocks.localization_service.mutable.api.source.LocalizationJsonSource;
 import com.github.simplemocks.webapp.api.dto.HealthStatus;
 import com.github.simplemocks.webapp.api.dto.WebApplication;
 import jakarta.annotation.Nonnull;
@@ -14,6 +15,16 @@ import java.util.Set;
  * @since 0.0.1
  */
 @Component
+@LocalizationJsonSource(
+        systemCode = "WEB.APP.JOLT",
+        path = "classpath:/web/app/jolt/content/localizations/eng.json",
+        iso3Code = "eng"
+)
+@LocalizationJsonSource(
+        systemCode = "WEB.APP.JOLT",
+        path = "classpath:/web/app/jolt/content/localizations/rus.json",
+        iso3Code = "rus"
+)
 public class WebAppJolt implements WebApplication {
     private static final LocalizationSourceId LOCALIZATION_SOURCE_ID = new LocalizationSourceId("WEB.APP.JOLT");
 
