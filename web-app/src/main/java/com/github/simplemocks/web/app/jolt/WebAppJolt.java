@@ -1,8 +1,8 @@
 package com.github.simplemocks.web.app.jolt;
 
-import com.github.simple_mocks.localization_service.api.dto.LocalizationId;
-import com.github.simple_mocks.localization_service.api.dto.LocalizationSourceId;
-import com.github.simple_mocks.localization_service.mutable.api.source.LocalizationJsonSource;
+import com.github.simplemocks.localization_service.api.dto.LocalizationId;
+import com.github.simplemocks.localization_service.api.dto.LocalizationSourceId;
+import com.github.simplemocks.localization_service.mutable.api.source.LocalizationJsonSource;
 import com.github.simplemocks.webapp.api.dto.HealthStatus;
 import com.github.simplemocks.webapp.api.dto.WebApplication;
 import jakarta.annotation.Nonnull;
