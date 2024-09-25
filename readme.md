@@ -1,4 +1,4 @@
-# Simple Mock - Web Application JOLT
+# SibDevTools - Web Application JOLT
 
 ## To build
 
