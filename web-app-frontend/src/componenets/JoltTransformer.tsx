@@ -1,7 +1,7 @@
 import React, { useRef, useState } from 'react';
 import { InputJson, InputJsonHandle } from './InputJson';
 import { OutputJson } from './OutputJson';
-import { useTheme } from "../theme/ThemeContext";
+import { useTheme } from '../theme/ThemeContext';
 
 export const JoltTransformer = () => {
   const inputTextRef = useRef<InputJsonHandle>(null);
@@ -16,6 +16,7 @@ export const JoltTransformer = () => {
 
   return (
     <div className="container mt-5">
+      <p className={'h2 mb-4'}>Jolt Transformer</p>
       {errorMessage && (
         <div className="row">
           <div className="row mt-3">

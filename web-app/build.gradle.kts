@@ -20,12 +20,11 @@ dependencies {
     implementation("com.bazaarvoice.jolt:jolt-core:${project.property("lib_jolt_version")}")
 
     implementation("jakarta.annotation:jakarta.annotation-api")
-    implementation("org.json:json:${project.property("lib_json_version")}")
 
-    implementation("com.github.simple-mocks:api-common:${project.property("lib_api_common_version")}")
-    implementation("com.github.simple-mocks:api-error:${project.property("lib_api_error_version")}")
-    implementation("com.github.simple-mocks:api-localization:${project.property("lib_api_localization_version")}")
-    implementation("com.github.simple-mocks:api-web-app:${project.property("lib_api_web_app_version")}")
+    implementation("com.github.sibdevtools:api-common:${project.property("lib_api_common_version")}")
+    implementation("com.github.sibdevtools:api-error:${project.property("lib_api_error_version")}")
+    implementation("com.github.sibdevtools:api-localization:${project.property("lib_api_localization_version")}")
+    implementation("com.github.sibdevtools:api-web-app:${project.property("lib_api_web_app_version")}")
 
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.springframework.boot:spring-boot-starter-web")
@@ -45,7 +44,25 @@ tasks.withType<Test> {
     useJUnitPlatform()
 }
 
+tasks.register<Copy>("copyFrontendResources") {
+    group = "build"
+    description = "Copies the frontend build resources to the Spring Boot static directory"
+
+    dependsOn(":web-app-frontend:build")
+
+    from(project(":web-app-frontend").file("build/out"))
+    into(layout.buildDirectory.dir("resources/main/web/app/jolt/static"))
+}
+
+tasks.named("processResources") {
+    dependsOn("copyFrontendResources")
+}
+
 tasks.jar {
+    dependsOn("copyFrontendResources")
+    from("LICENSE") {
+        rename { "${it}_${project.property("project_name")}" }
+    }
     from("LICENSE") {
         rename { "${it}_${project.property("project_name")}" }
     }
@@ -80,7 +97,7 @@ publishing {
             artifactId = "web-app-jolt"
             pom {
                 packaging = "jar"
-                url = "https://github.com/simple-mocks/web-app-jolt"
+                url = "https://github.com/sibdevtools/web-app-jolt"
 
                 licenses {
                     license {
@@ -90,9 +107,9 @@ publishing {
                 }
 
                 scm {
-                    connection.set("scm:https://github.com/simple-mocks/web-app-jolt.git")
-                    developerConnection.set("scm:git:ssh://github.com/simple-mocks")
-                    url.set("https://github.com/simple-mocks/web-app-jolt")
+                    connection.set("scm:https://github.com/sibdevtools/web-app-jolt.git")
+                    developerConnection.set("scm:git:ssh://github.com/sibdevtools")
+                    url.set("https://github.com/sibdevtools/web-app-jolt")
                 }
 
                 developers {

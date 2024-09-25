@@ -31,7 +31,7 @@ export const OutputJson = ({
     }
 
     try {
-      const response = await fetch('/web/app/jolt/v1/transform', {
+      const response = await fetch('/web/app/jolt/rest/v1/transform', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

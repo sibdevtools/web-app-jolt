@@ -22,11 +22,12 @@ module.exports = {
   },
   output: {
     filename: 'bundle.js',
-    path: path.resolve(__dirname, '../resources/web/app/jolt/static'),
+    publicPath: '/web/app/jolt/ui/',
+    path: path.resolve(__dirname, 'build/out'),
   },
   devServer: {
     static: {
-      directory: path.join(__dirname, '../resources/web/app/jolt/static'), // Serve from 'dist' directory
+      directory: path.join(__dirname, 'build/out'), // Serve from 'dist' directory
     },
     open: true, // Automatically open the browser
     port: 3000, // You can choose any port

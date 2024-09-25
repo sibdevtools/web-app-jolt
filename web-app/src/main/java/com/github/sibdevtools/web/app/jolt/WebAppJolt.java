@@ -1,10 +1,10 @@
-package com.github.simplemocks.web.app.jolt;
+package com.github.sibdevtools.web.app.jolt;
 
-import com.github.simplemocks.localization_service.api.dto.LocalizationId;
-import com.github.simplemocks.localization_service.api.dto.LocalizationSourceId;
-import com.github.simplemocks.localization_service.mutable.api.source.LocalizationJsonSource;
-import com.github.simplemocks.webapp.api.dto.HealthStatus;
-import com.github.simplemocks.webapp.api.dto.WebApplication;
+import com.github.sibdevtools.localization.api.dto.LocalizationId;
+import com.github.sibdevtools.localization.api.dto.LocalizationSourceId;
+import com.github.sibdevtools.localization.mutable.api.source.LocalizationJsonSource;
+import com.github.sibdevtools.webapp.api.dto.HealthStatus;
+import com.github.sibdevtools.webapp.api.dto.WebApplication;
 import jakarta.annotation.Nonnull;
 import org.springframework.stereotype.Component;
 
@@ -37,7 +37,7 @@ public class WebAppJolt implements WebApplication {
     @Nonnull
     @Override
     public String getFrontendUrl() {
-        return "/web/app/jolt/";
+        return "/web/app/jolt/ui/";
     }
 
     @Nonnull

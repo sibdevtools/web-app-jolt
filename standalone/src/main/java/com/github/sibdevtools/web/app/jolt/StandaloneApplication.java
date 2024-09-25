@@ -1,4 +1,4 @@
-package com.github.simplemocks.web.app.jolt;
+package com.github.sibdevtools.web.app.jolt;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

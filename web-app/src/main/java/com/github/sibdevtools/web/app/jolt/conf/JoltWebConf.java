@@ -1,4 +1,4 @@
-package com.github.simplemocks.web.app.jolt.conf;
+package com.github.sibdevtools.web.app.jolt.conf;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
@@ -16,7 +16,7 @@ import org.springframework.web.servlet.resource.VersionResourceResolver;
 public class JoltWebConf implements WebMvcConfigurer {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/web/app/jolt/**")
+        registry.addResourceHandler("/web/app/jolt/ui/**")
                 .addResourceLocations("classpath:/web/app/jolt/static/")
                 .resourceChain(true)
                 .addResolver(new VersionResourceResolver().addContentVersionStrategy("/**"));
@@ -24,7 +24,7 @@ public class JoltWebConf implements WebMvcConfigurer {
 
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
-        registry.addViewController("/web/app/jolt/")
-                .setViewName("forward:/web/app/jolt/index.html");
+        registry.addViewController("/web/app/jolt/ui/")
+                .setViewName("forward:/web/app/jolt/ui/index.html");
     }
 }

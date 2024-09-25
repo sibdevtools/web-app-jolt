@@ -1,4 +1,4 @@
-package com.github.simplemocks.web.app.jolt.api;
+package com.github.sibdevtools.web.app.jolt.api;
 
 
 import java.util.List;
