@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Exchange01Icon, TextWrapIcon } from 'hugeicons-react';
 import { InputJsonHandle } from './InputJson';
 import AceEditor from 'react-ace';
-import { useTheme } from '../theme/ThemeContext';
+import { loadSettings } from '../settings/utils';
 
 export interface OutputJsonProps {
   setErrorMessage: (inputText: string) => void;
@@ -15,7 +15,7 @@ export const OutputJson = ({
                              inputTextRef,
                              inputSpecificationRef
                            }: OutputJsonProps) => {
-  const { theme } = useTheme();
+  const settings = loadSettings()
   const [outputText, setOutputText] = useState('');
   const [isWordWrapEnabled, setWordWrapEnabled] = useState(true);
 
@@ -79,7 +79,7 @@ export const OutputJson = ({
       <div style={{ position: 'relative' }}>
         <AceEditor
           mode="json"
-          theme={theme}
+          theme={settings['aceTheme'].value}
           name="outputAceEditor"
           value={outputText}
           fontSize={14}
