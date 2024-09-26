@@ -2,7 +2,7 @@ import React, { forwardRef, useImperativeHandle, useState } from 'react';
 import { AiBeautifyIcon, CheckmarkSquare01Icon, TextWrapIcon } from 'hugeicons-react';
 import { prettifyJson, validateJson } from '../utils/validators';
 import AceEditor from 'react-ace';
-import { useTheme } from '../theme/ThemeContext';
+import { loadSettings } from '../settings/utils';
 
 export interface InputJsonProps {
   id: string;
@@ -15,7 +15,9 @@ export interface InputJsonHandle {
 
 export const InputJson = forwardRef<InputJsonHandle, InputJsonProps>(
   ({ id, name }: InputJsonProps, ref) => {
-    const { theme } = useTheme();
+    const settings = loadSettings()
+    console.log(settings);
+
     const [inputText, setInputText] = useState('');
     const [isInputTextInvalid, setInputTextInvalid] = useState('');
     const [isInputTextValid, setInputTextValid] = useState(false);
@@ -87,7 +89,7 @@ export const InputJson = forwardRef<InputJsonHandle, InputJsonProps>(
         >
           <AceEditor
             mode="json"
-            theme={theme}
+            theme={settings['aceTheme'].value}
             name={`${id}AceEditor`}
             onChange={handleInputChange}
             value={inputText}

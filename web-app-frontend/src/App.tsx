@@ -18,14 +18,10 @@ import 'ace-builds/src-noconflict/theme-terminal';
 
 import 'ace-builds/src-noconflict/ext-language_tools';
 
-import { ThemeProvider } from './theme/ThemeContext';
-
 
 const App: React.FC = () => {
   return (
-    <ThemeProvider>
-      <JoltTransformer />
-    </ThemeProvider>
+    <JoltTransformer />
   );
 };
 
