@@ -3,6 +3,7 @@ import { Exchange01Icon, TextWrapIcon } from 'hugeicons-react';
 import { InputJsonHandle } from './InputJson';
 import AceEditor from 'react-ace';
 import { loadSettings } from '../settings/utils';
+import { Button, ButtonGroup, FormLabel } from 'react-bootstrap';
 
 export interface OutputJsonProps {
   setErrorMessage: (inputText: string) => void;
@@ -17,7 +18,7 @@ export const OutputJson = ({
                            }: OutputJsonProps) => {
   const settings = loadSettings()
   const [outputText, setOutputText] = useState('');
-  const [isWordWrapEnabled, setWordWrapEnabled] = useState(true);
+  const [wordWrapEnabled, setWordWrapEnabled] = useState(true);
 
   const handleTransform = async () => {
     let input = inputTextRef?.current?.getValidated();
@@ -63,20 +64,21 @@ export const OutputJson = ({
 
   return (
     <>
-      <label htmlFor="outputArea" className="form-label">Output</label>
-      <div className="btn-group position-absolute" role="group" style={{ top: 0, right: 0, zIndex: 3 }}>
-        <button className="btn btn-success" onClick={handleTransform}>
+      <FormLabel htmlFor="outputArea">Output</FormLabel>
+      <ButtonGroup className={'float-end'}>
+        <Button variant={'success'} onClick={handleTransform}>
           <Exchange01Icon />
-        </button>
-        <button
-          className={`btn btn-primary ${(isWordWrapEnabled ? 'active' : '')}`}
-          title={isWordWrapEnabled ? 'Unwrap' : 'Wrap'}
+        </Button>
+        <Button
+          variant={'primary'}
+          className={`${(wordWrapEnabled ? 'active' : '')}`}
+          title={wordWrapEnabled ? 'Unwrap' : 'Wrap'}
           onClick={toggleWordWrap}
         >
           <TextWrapIcon />
-        </button>
-      </div>
-      <div style={{ position: 'relative' }}>
+        </Button>
+      </ButtonGroup>
+      <div className="form-control">
         <AceEditor
           mode="json"
           theme={settings['aceTheme'].value}
@@ -86,9 +88,9 @@ export const OutputJson = ({
           width="100%"
           height="480px"
           readOnly
-          wrapEnabled={isWordWrapEnabled}
+          wrapEnabled={wordWrapEnabled}
           setOptions={{
-            wrap: isWordWrapEnabled,
+            wrap: wordWrapEnabled,
             useWorker: false
           }}
           editorProps={{ $blockScrolling: true }}
