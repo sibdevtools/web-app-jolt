@@ -3,10 +3,13 @@ import { AiBeautifyIcon, CheckmarkSquare01Icon, TextWrapIcon } from 'hugeicons-r
 import { prettifyJson, validateJson } from '../utils/validators';
 import AceEditor from 'react-ace';
 import { loadSettings } from '../settings/utils';
+import { Button, ButtonGroup, FormLabel } from 'react-bootstrap';
+import Feedback from 'react-bootstrap/Feedback';
 
 export interface InputJsonProps {
   id: string;
   name: string;
+  defaultValue: string;
 }
 
 export interface InputJsonHandle {
@@ -14,14 +17,13 @@ export interface InputJsonHandle {
 }
 
 export const InputJson = forwardRef<InputJsonHandle, InputJsonProps>(
-  ({ id, name }: InputJsonProps, ref) => {
-    const settings = loadSettings()
-    console.log(settings);
+  ({ id, name, defaultValue }: InputJsonProps, ref) => {
+    const settings = loadSettings();
 
-    const [inputText, setInputText] = useState('');
-    const [isInputTextInvalid, setInputTextInvalid] = useState('');
-    const [isInputTextValid, setInputTextValid] = useState(false);
-    const [isWordWrapEnabled, setWordWrapEnabled] = useState(true);
+    const [inputText, setInputText] = useState(defaultValue);
+    const [inputTextInvalid, setInputTextInvalid] = useState('');
+    const [inputTextValid, setInputTextValid] = useState(false);
+    const [wordWrapEnabled, setWordWrapEnabled] = useState(true);
 
     useImperativeHandle(ref, () => ({
       getValidated: () => {
@@ -63,29 +65,29 @@ export const InputJson = forwardRef<InputJsonHandle, InputJsonProps>(
 
     return (
       <>
-        <label htmlFor={`${id}TextArea`} className="form-label">{name}</label>
-        <div className="btn-group position-absolute" role="group" style={{ top: 0, right: 0, zIndex: 3 }}>
-          <button className="btn btn-primary" title="Beautify" onClick={prettifyInputText}>
+        <FormLabel htmlFor={`${id}TextArea`}>{name}</FormLabel>
+        <ButtonGroup className={'float-end'}>
+          <Button variant={'primary'} title="Beautify" onClick={prettifyInputText}>
             <AiBeautifyIcon />
-          </button>
-          <button
-            className="btn btn-success"
+          </Button>
+          <Button
+            variant={'success'}
             title="Validate"
             onClick={validateInputText}>
             <CheckmarkSquare01Icon />
-          </button>
-          <button
-            className={`btn btn-primary ${(isWordWrapEnabled ? 'active' : '')}`}
-            title={isWordWrapEnabled ? 'Unwrap' : 'Wrap'}
+          </Button>
+          <Button
+            variant={'primary'}
+            className={`${(wordWrapEnabled ? 'active' : '')}`}
+            title={wordWrapEnabled ? 'Unwrap' : 'Wrap'}
             onClick={toggleWordWrap}
           >
             <TextWrapIcon />
-          </button>
-        </div>
+          </Button>
+        </ButtonGroup>
         <div id={`${id}TextArea`}
-             style={{ position: 'relative' }}
              aria-describedby={`${id}TextAreaFeedback`}
-             className={`form-control ${(isInputTextInvalid === '' ? '' : 'is-invalid')} ${(isInputTextValid ? 'is-valid' : '')}`}
+             className={`form-control ${(inputTextInvalid === '' ? '' : 'is-invalid')} ${(inputTextValid ? 'is-valid' : '')}`}
         >
           <AceEditor
             mode="json"
@@ -99,21 +101,21 @@ export const InputJson = forwardRef<InputJsonHandle, InputJsonProps>(
             showPrintMargin={true}
             showGutter={true}
             highlightActiveLine={true}
-            wrapEnabled={isWordWrapEnabled}
+            wrapEnabled={wordWrapEnabled}
             setOptions={{
               enableBasicAutocompletion: true,
               enableLiveAutocompletion: true,
               showLineNumbers: true,
               enableSnippets: true,
-              wrap: isWordWrapEnabled,
+              wrap: wordWrapEnabled,
               useWorker: false
             }}
             editorProps={{ $blockScrolling: true }}
           />
         </div>
-        <div id={`${id}TextAreaFeedback`} className="invalid-feedback">
-          {isInputTextInvalid}
-        </div>
+        <Feedback id={`${id}TextAreaFeedback`} type={'invalid'}>
+          {inputTextInvalid}
+        </Feedback>
       </>
     );
   }

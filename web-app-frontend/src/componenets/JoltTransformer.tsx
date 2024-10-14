@@ -1,6 +1,7 @@
 import React, { useRef, useState } from 'react';
 import { InputJson, InputJsonHandle } from './InputJson';
 import { OutputJson } from './OutputJson';
+import { Alert, Col, Container, Row } from 'react-bootstrap';
 
 export const JoltTransformer = () => {
   const inputTextRef = useRef<InputJsonHandle>(null);
@@ -9,42 +10,44 @@ export const JoltTransformer = () => {
   const [errorMessage, setErrorMessage] = useState('');
 
   return (
-    <div className="container mt-5">
+    <Container className="mt-5">
       <p className={'h2 mb-4'}>Jolt Transformer</p>
       {errorMessage && (
-        <div className="row">
-          <div className="row mt-3">
-            <div className="col">
-              <div className="alert alert-danger" role="alert">
+        <Row>
+          <Row className="mt-3">
+            <Col>
+              <Alert variant={'danger'} role="alert">
                 {errorMessage}
-              </div>
-            </div>
-          </div>
-        </div>
+              </Alert>
+            </Col>
+          </Row>
+        </Row>
       )}
-      <div className="row">
-        <div className="col-4 position-relative">
+      <Row>
+        <Col md={4} className="position-relative">
           <InputJson
             ref={inputTextRef}
             id="input"
             name="Input"
+            defaultValue={'{}'}
           />
-        </div>
-        <div className="col-4 position-relative">
+        </Col>
+        <Col md={4} className="position-relative">
           <InputJson
             ref={inputSpecificationRef}
             id="inputSpecification"
             name="Specification"
+            defaultValue={'[]'}
           />
-        </div>
-        <div className="col-4 position-relative">
+        </Col>
+        <Col md={4} className="position-relative">
           <OutputJson
             inputTextRef={inputTextRef}
             inputSpecificationRef={inputSpecificationRef}
             setErrorMessage={setErrorMessage}
           />
-        </div>
-      </div>
-    </div>
+        </Col>
+      </Row>
+    </Container>
   );
 };
