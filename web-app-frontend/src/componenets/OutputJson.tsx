@@ -4,6 +4,7 @@ import { InputJsonHandle } from './InputJson';
 import AceEditor from 'react-ace';
 import { loadSettings } from '../settings/utils';
 import { Button, ButtonGroup, FormLabel } from 'react-bootstrap';
+import { transform } from '../api/service';
 
 export interface OutputJsonProps {
   setErrorMessage: (inputText: string) => void;
@@ -32,26 +33,17 @@ export const OutputJson = ({
     }
 
     try {
-      const response = await fetch('/web/app/jolt/rest/v1/transform', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          input: input,
-          specification: specification
-        }),
-      });
+      const response = await transform({ input, specification });
 
-      if (!response.ok) {
+      if (response.data.success) {
+        const result = await response.data.body;
+        setOutputText(JSON.stringify(result, null, 4));
+        setErrorMessage('');
+      } else {
         console.error(`Failed to process: ${response.status}`);
         setErrorMessage(`Failed to process: ${response.status}`);
         return;
       }
-
-      const result = await response.json();
-      setOutputText(JSON.stringify(result, null, 4));
-      setErrorMessage('');
     } catch (error) {
       console.error(error);
       setErrorMessage(`Failed to transform: ${error}`);
@@ -78,24 +70,24 @@ export const OutputJson = ({
           <TextWrapIcon />
         </Button>
       </ButtonGroup>
-      <div className="form-control">
-        <AceEditor
-          mode="json"
-          theme={settings['aceTheme'].value}
-          name="outputAceEditor"
-          value={outputText}
-          fontSize={14}
-          width="100%"
-          height="480px"
-          readOnly
-          wrapEnabled={wordWrapEnabled}
-          setOptions={{
-            wrap: wordWrapEnabled,
-            useWorker: false
-          }}
-          editorProps={{ $blockScrolling: true }}
-        />
-      </div>
+      <AceEditor
+        mode="json"
+        key={'outputAceEditor'}
+        className={'form-control'}
+        theme={settings['aceTheme'].value}
+        name="outputAceEditor"
+        value={outputText}
+        fontSize={14}
+        width="100%"
+        height="480px"
+        readOnly
+        wrapEnabled={wordWrapEnabled}
+        setOptions={{
+          wrap: wordWrapEnabled,
+          useWorker: false
+        }}
+        editorProps={{ $blockScrolling: true }}
+      />
     </>
   );
 };
