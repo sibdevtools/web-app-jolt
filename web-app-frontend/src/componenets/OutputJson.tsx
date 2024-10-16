@@ -78,24 +78,24 @@ export const OutputJson = ({
           <TextWrapIcon />
         </Button>
       </ButtonGroup>
-      <div className="form-control">
-        <AceEditor
-          mode="json"
-          theme={settings['aceTheme'].value}
-          name="outputAceEditor"
-          value={outputText}
-          fontSize={14}
-          width="100%"
-          height="480px"
-          readOnly
-          wrapEnabled={wordWrapEnabled}
-          setOptions={{
-            wrap: wordWrapEnabled,
-            useWorker: false
-          }}
-          editorProps={{ $blockScrolling: true }}
-        />
-      </div>
+      <AceEditor
+        mode="json"
+        key={'outputAceEditor'}
+        className={'form-control'}
+        theme={settings['aceTheme'].value}
+        name="outputAceEditor"
+        value={outputText}
+        fontSize={14}
+        width="100%"
+        height="480px"
+        readOnly
+        wrapEnabled={wordWrapEnabled}
+        setOptions={{
+          wrap: wordWrapEnabled,
+          useWorker: false
+        }}
+        editorProps={{ $blockScrolling: true }}
+      />
     </>
   );
 };

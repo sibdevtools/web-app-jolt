@@ -85,34 +85,32 @@ export const InputJson = forwardRef<InputJsonHandle, InputJsonProps>(
             <TextWrapIcon />
           </Button>
         </ButtonGroup>
-        <div id={`${id}TextArea`}
-             aria-describedby={`${id}TextAreaFeedback`}
-             className={`form-control ${(inputTextInvalid === '' ? '' : 'is-invalid')} ${(inputTextValid ? 'is-valid' : '')}`}
-        >
-          <AceEditor
-            mode="json"
-            theme={settings['aceTheme'].value}
-            name={`${id}AceEditor`}
-            onChange={handleInputChange}
-            value={inputText}
-            fontSize={14}
-            width="100%"
-            height="480px"
-            showPrintMargin={true}
-            showGutter={true}
-            highlightActiveLine={true}
-            wrapEnabled={wordWrapEnabled}
-            setOptions={{
-              enableBasicAutocompletion: true,
-              enableLiveAutocompletion: true,
-              showLineNumbers: true,
-              enableSnippets: true,
-              wrap: wordWrapEnabled,
-              useWorker: false
-            }}
-            editorProps={{ $blockScrolling: true }}
-          />
-        </div>
+        <AceEditor
+          mode="json"
+          key={`${id}TextArea`}
+          className={`form-control ${(inputTextInvalid === '' ? '' : 'is-invalid')} ${(inputTextValid ? 'is-valid' : '')}`}
+          theme={settings['aceTheme'].value}
+          name={`${id}AceEditor`}
+          onChange={handleInputChange}
+          value={inputText}
+          fontSize={14}
+          width="100%"
+          height="480px"
+          showPrintMargin={true}
+          showGutter={true}
+          highlightActiveLine={true}
+          wrapEnabled={wordWrapEnabled}
+          setOptions={{
+            enableBasicAutocompletion: true,
+            enableLiveAutocompletion: true,
+            showLineNumbers: true,
+            enableSnippets: false,
+            wrap: wordWrapEnabled,
+            useWorker: false,
+            enableMobileMenu: false,
+          }}
+          editorProps={{ $blockScrolling: true }}
+        />
         <Feedback id={`${id}TextAreaFeedback`} type={'invalid'}>
           {inputTextInvalid}
         </Feedback>

@@ -24,7 +24,7 @@ export const JoltTransformer = () => {
         </Row>
       )}
       <Row>
-        <Col md={4} className="position-relative">
+        <Col md={12} lg={4}>
           <InputJson
             ref={inputTextRef}
             id="input"
@@ -32,7 +32,7 @@ export const JoltTransformer = () => {
             defaultValue={'{}'}
           />
         </Col>
-        <Col md={4} className="position-relative">
+        <Col md={12} lg={4}>
           <InputJson
             ref={inputSpecificationRef}
             id="inputSpecification"
@@ -40,7 +40,7 @@ export const JoltTransformer = () => {
             defaultValue={'[]'}
           />
         </Col>
-        <Col md={4} className="position-relative">
+        <Col md={12} lg={4}>
           <OutputJson
             inputTextRef={inputTextRef}
             inputSpecificationRef={inputSpecificationRef}
