@@ -88,7 +88,13 @@ export const InputJson = forwardRef<InputJsonHandle, InputJsonProps>(
         <AceEditor
           mode="json"
           key={`${id}TextArea`}
-          className={`form-control ${(inputTextInvalid === '' ? '' : 'is-invalid')} ${(inputTextValid ? 'is-valid' : '')}`}
+          className={`rounded border ${(inputTextInvalid === '' ? '' : 'border-danger')} ${(inputTextValid ? 'border-success' : '')}`}
+          style={{
+            resize: 'vertical',
+            overflow: 'auto',
+            height: '480px',
+            minHeight: '200px',
+          }}
           theme={settings['aceTheme'].value}
           name={`${id}AceEditor`}
           onChange={handleInputChange}

@@ -73,7 +73,13 @@ export const OutputJson = ({
       <AceEditor
         mode="json"
         key={'outputAceEditor'}
-        className={'form-control'}
+        className={'rounded'}
+        style={{
+          resize: 'vertical',
+          overflow: 'auto',
+          height: '480px',
+          minHeight: '200px',
+        }}
         theme={settings['aceTheme'].value}
         name="outputAceEditor"
         value={outputText}
