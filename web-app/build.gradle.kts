@@ -5,10 +5,13 @@ plugins {
     id("java")
     id("jacoco")
     id("maven-publish")
+    alias(libs.plugins.spring.dependency.managment)
 }
 
 dependencies {
     compileOnly("org.projectlombok:lombok")
+    compileOnly("jakarta.servlet:jakarta.servlet-api")
+
     annotationProcessor("org.projectlombok:lombok")
 
     implementation("org.springframework:spring-context")
@@ -16,15 +19,13 @@ dependencies {
     implementation("org.springframework:spring-web")
     implementation("org.springframework:spring-webmvc")
     implementation("org.springframework.boot:spring-boot-autoconfigure")
+    implementation("org.springframework.boot:spring-boot-starter-validation")
 
-    implementation("com.bazaarvoice.jolt:jolt-core:${project.property("lib_jolt_version")}")
+    implementation(libs.jolt)
 
     implementation("jakarta.annotation:jakarta.annotation-api")
 
-    implementation("com.github.sibdevtools:api-common:${project.property("lib_api_common_version")}")
-    implementation("com.github.sibdevtools:api-error:${project.property("lib_api_error_version")}")
-    implementation("com.github.sibdevtools:api-localization:${project.property("lib_api_localization_version")}")
-    implementation("com.github.sibdevtools:api-web-app:${project.property("lib_api_web_app_version")}")
+    implementation(libs.bundles.service.api)
 
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.springframework.boot:spring-boot-starter-web")
@@ -38,6 +39,36 @@ dependencies {
     testAnnotationProcessor("org.projectlombok:lombok")
 
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")
+}
+
+val targetJavaVersion = (libs.versions.java.get()).toInt()
+val javaVersion = JavaVersion.toVersion(targetJavaVersion)
+
+java {
+    sourceCompatibility = javaVersion
+    targetCompatibility = javaVersion
+
+    if (JavaVersion.current() < javaVersion) {
+        toolchain.languageVersion = JavaLanguageVersion.of(targetJavaVersion)
+    }
+    withSourcesJar()
+}
+
+dependencyManagement {
+    imports {
+        mavenBom("org.springframework.boot:spring-boot-dependencies:${libs.versions.spring.framework.get()}")
+    }
+}
+
+tasks.withType<JavaCompile>().configureEach {
+    // ensure that the encoding is set to UTF-8, no matter what the system default is
+    // this fixes some edge cases with special characters not displaying correctly
+    // see http://yodaconditions.net/blog/fix-for-java-file-encoding-problems-with-gradle.html
+    // If Javadoc is generated, this must be specified in that task too.
+    options.encoding = "UTF-8"
+    if (targetJavaVersion >= 10 || JavaVersion.current().isJava10Compatible()) {
+        options.release = targetJavaVersion
+    }
 }
 
 tasks.withType<Test> {
@@ -66,9 +97,6 @@ tasks.withType<ProcessResources> {
 
 tasks.jar {
     dependsOn("copyFrontendResources")
-    from("LICENSE") {
-        rename { "${it}_${project.property("project_name")}" }
-    }
     from("LICENSE") {
         rename { "${it}_${project.property("project_name")}" }
     }
