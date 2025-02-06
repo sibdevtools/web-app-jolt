@@ -44,6 +44,6 @@ jobs:
         if: startsWith(github.ref, 'refs/tags/')
         with:
           files: |
-            build/libs/*${{ env.VERSION }}.jar
-            build/libs/*${{ env.VERSION }}-javadoc.jar
-            build/libs/*${{ env.VERSION }}-sources.jar
+            build/web-app/libs/*${{ env.VERSION }}.jar
+            build/web-app/libs/*${{ env.VERSION }}-javadoc.jar
+            build/web-app/libs/*${{ env.VERSION }}-sources.jar
