@@ -10,7 +10,7 @@ export const JoltTransformer = () => {
   const [errorMessage, setErrorMessage] = useState('');
 
   return (
-    <Container className="mt-5">
+    <Container fluid className="mt-5">
       <p className={'h2 mb-4'}>Jolt Transformer</p>
       {errorMessage && (
         <Row>
